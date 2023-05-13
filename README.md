@@ -19,7 +19,7 @@ _npx cdk deploy --profile={nameofawsprofileinenvironment}_
 
 This will display something similar to the following:
 
-![Deploying the CDK stack](/screenshot/deploying_stack.png?raw=true "Deploying the stack")
+![Deploying the CDK stack](/screenshots/deploying_stack.png?raw=true "Deploying the stack")
 
 Main outputs from the stack to make note of are:
 
@@ -63,7 +63,7 @@ Also replace the AWS region in this URL if the stack has been deployed to an AWS
 
 Save the changes and then run from the CLI for an output similar to below:
 
-![Testing Stack Auth](/screenshot/test_script.png?raw=true "Testing the stack")
+![Testing Stack Auth](/screenshots/test_script.png?raw=true "Testing the stack")
 
 # Troubleshooting
 
