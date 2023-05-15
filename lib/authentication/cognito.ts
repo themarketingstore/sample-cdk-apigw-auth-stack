@@ -64,7 +64,7 @@ export default class StackAuth extends StackOutputs {
             scopes: [
                 {
                     scopeDescription: "Access Lambda functionality through APIGW",
-                    scopeName: "call-lambda",
+                    scopeName: this.scopeName,
                 },
             ],
         });
@@ -77,7 +77,7 @@ export default class StackAuth extends StackOutputs {
                 flows: {
                     clientCredentials: true
                 },
-                scopes: [aws_cognito.OAuthScope.custom("https://resourceserver//call-lambda")],
+                scopes: [aws_cognito.OAuthScope.custom(`https://resourceserver//${this.scopeName}`)],
             }
         }
 

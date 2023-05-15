@@ -8,17 +8,6 @@ export default {
         // Change to keep the user pool on stack destruction
         removalPolicy: RemovalPolicy.DESTROY,
         admin_domain: "cdk-sample-cognito-domain",
-        // URL to redirect users after authenticating via the hosted UI login form
-        // hosted_ui_return_url: "https://example.com",
-        advancedSecurityMode: cognito.AdvancedSecurityMode.AUDIT,
-        passwordPolicy: {
-            minLength: parseInt("8" ),
-            requireLowercase: true,
-            requireUppercase: true,
-            requireDigits: true,
-            requireSymbols: true,
-            tempPasswordValidity: Duration.days(parseInt("3" )),
-        },
     },
     user_client: {
         client_name: process.env.SWEEPS_AUTH_CLIENT_NAME ?? "CDK-Cognito_Client",
