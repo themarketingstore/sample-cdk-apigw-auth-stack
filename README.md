@@ -23,16 +23,55 @@ This will display something similar to the following:
 
 Main outputs from the stack to make note of are:
 
-CognitoClientIDCdkAuthStack - The client ID of the Cognito Client
-CognitoClientSecretCdkAuthStack - The Client Secret ( this and the client ID will be used to request an access token ).
-CognitoAuthDomainCdkAuthStack - The domain name for the cognito auth endpoint. 
-APIGWURLCdkAuthStack - This is the URL for the API Gateway instance that was created.
+-CognitoClientIDCdkAuthStack - The client ID of the Cognito Client.
+
+-CognitoClientSecretCdkAuthStack - The Client Secret ( this and the client ID will be used to request an access token ).
+
+-CognitoAuthDomainCdkAuthStack - The domain name for the cognito auth endpoint. 
+
+-APIGWURLCdkAuthStack - This is the URL for the API Gateway instance that was created.
 
 # API Routes
 
 The stack will create a REST API Gateway instance with a single route:
 
-/response - This endpoint requires a POST request.
+/response - This endpoint requires a POST request with an Authorization header containing an access token provided by the AWS Cognito service.
+
+![Creating a request](/screenshots/insomnia_request.png?raw=true "POST Request")
+
+# Key Files & Directories
+
+### General files
+
+- /bin/sample_cdk_stack.ts - Entry point for the stack, instantiates the CDK stack with AWS environment information. 
+
+### Code
+
+- /code/lambda/hello_world/invoke.py - Python code for the Lambda function to service authenticated API requests.
+
+### Config Files
+
+- /config/general.ts - General stack options; timezone, resource tags etc.
+
+
+- /config/cognito.ts - Settings related to the AWS Cognito service.
+
+### Library Files
+
+- /lib/authentication/cognito.ts - Creates AWS related resources; user client, pool and domain.
+
+
+- /lib/general/stack_outputs.ts - Class controlling the creating of Cloud Formation outputs for created resources.
+
+
+- /lib/networking/api_gateway.ts - Create an API Gateway endpoint and attach a Cognito authorizer.
+
+
+- /lib/serverless/lambda.ts - Defines a Lambda function to respond to requests received by the API gateway.
+
+### Tests
+
+- /test/python/test_auth.py - Python script that will demonstrate requesting an access token from the AWS Cognito services. Then using the token to authenticate with the API Gateway when making a request. 
 
 # Lambda Function
 
@@ -47,15 +86,19 @@ and signing a request to the API Gateway endpoint.
 
 But if you would like to request one manually for debugging or similar a token can be requested manually with CURL:
 
-_curl --location --request POST 'https://cdkauthstack.auth.us-east-1.amazoncognito.com/oauth2/token' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'grant_type=client_credentials' --data-urlencode 'client_id=3al555u4k46bdb6nkfuiv2mf57' --data-urlencode 'client_secret=1vjtp2oh9lktf1u5fsgl8snu1p566r0j4psuobhp2s0e5tevaa5g'_
+_curl --location --request POST 'https://cdkauthstack.auth.us-east-1.amazoncognito.com/oauth2/token' --header 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'grant_type=client_credentials' --data-urlencode 'client_id=CLIENTID' --data-urlencode 'client_secret=CLIENTSECRET'_
 
 The auth url, client id and secret will need to be replaced with the relevant values for your stack as noted in the stack outputs.
 
-If you would like to test the endpoint auth using the python script, open the file test/python/test_auth.py and replace the values:
+### Testing Authentication via Python Script
 
-CLIENT_ID
-CLIENT_SECRET
-API_GW_ENDPOINT
+If you would like to test the endpoint auth using the python script, open the file test/python/test_auth.py. 
+
+Replace the values of the variables below, with values relevant to your stack provided by the outputs after deployment:
+
+- CLIENT_ID
+- CLIENT_SECRET
+- API_GW_ENDPOINT
 
 With values relevant to your stack, edit the AUTH_DOMAIN and replace with the value for your stacks auth domain. 
 
