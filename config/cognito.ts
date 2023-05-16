@@ -10,13 +10,13 @@ export default {
         admin_domain: "cdk-sample-cognito-domain",
     },
     user_client: {
-        client_name: process.env.SWEEPS_AUTH_CLIENT_NAME ?? "CDK-Cognito_Client",
+        client_name: process.env.AUTH_CLIENT_NAME ?? "CDK-Cognito_Client",
         auth_flows: {
             adminUserPassword: true,
             custom: true,
             userSrp: true,
         },
-        token_ttl: Duration.minutes(parseInt(process.env.SWEEPS_AUTH_CLIENT_TOKEN_TTL ?? "120" )),
+        token_ttl: Duration.minutes(parseInt(process.env.AUTH_CLIENT_TOKEN_TTL ?? "120" )),
         callback_path: "auth/v1/complete",
         logout_path: "auth/v1/logout"
     }

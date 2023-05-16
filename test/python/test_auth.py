@@ -13,11 +13,11 @@ LOGGER = logging.getLogger(__name__)
 LOGGER.setLevel(logging.DEBUG)
 
 # @TODO: Replace these with the credentials you take from the Cognito Client Settings in the AWS console
-CLIENT_ID = "3al555u4k46bdb6nkfuiv2mf57"
-CLIENT_SECRET = "1vjtp2oh9lktf1u5fsgl8snu1p566r0j4psuobhp2s0e5tevaa5g"
+CLIENT_ID = ""
+CLIENT_SECRET = ""
 
 # @TODO: Replace this with your the gateway endpoint provided in the Cloudformation outputs
-API_GW_ENDPOINT = "https://mg2reg1z7l.execute-api.us-east-1.amazonaws.com/CdkAuthStack/"
+API_GW_ENDPOINT = ""
 
 AUTH_DOMAIN = "cdkauthstack.auth.us-east-1.amazoncognito.com"
 COGNITO_TOKEN_ENDPOINT = f"https://{ AUTH_DOMAIN }/oauth2/token"
